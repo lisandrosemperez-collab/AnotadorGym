@@ -1,0 +1,152 @@
+﻿using Microsoft.Maui.Controls;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AnotadorGymApp.Services
+{
+    public class ImagenPersistenteService : IDisposable
+    {
+        private readonly string _carpetaImagenesUsuario;
+        public ImagenPersistenteService()
+        {
+            _carpetaImagenesUsuario = Path.Combine(FileSystem.AppDataDirectory, "ImagenesUsuario");
+            Directory.CreateDirectory(_carpetaImagenesUsuario);
+        }
+
+        public async Task<string> GuardarImagenUsuarioAsync(string nombreRutina, FileResult fileResult)
+        {
+            if (fileResult == null)
+                throw new ArgumentNullException(nameof(fileResult));
+
+            await using var stream = await fileResult.OpenReadAsync();
+            return await GuardarImagenUsuarioAsync(nombreRutina, stream);
+        }
+        public async Task<string> GuardarImagenUsuarioAsync(string nombreRutina, Stream imagenStream)
+        {
+            // Generar nombre único
+            var nombreArchivo = $"{NormalizarNombre(nombreRutina)}.jpg";
+            var rutaCompleta = Path.Combine(_carpetaImagenesUsuario, nombreArchivo);
+            try
+            {
+                if (File.Exists(rutaCompleta))
+                {
+                    File.Delete(rutaCompleta);
+                    Debug.WriteLine($"🗑️ Imagen anterior eliminada: {rutaCompleta}");
+                    await Task.Delay(100);
+                }
+
+                // Guardar imagen
+                using var fileStream = new FileStream(rutaCompleta, FileMode.Create, FileAccess.Write);
+                await imagenStream.CopyToAsync(fileStream);
+                return rutaCompleta;
+            }
+            catch (IOException ioEx)
+            {
+                // Si hay error de IO (archivo en uso), usar nombre alternativo
+                Debug.WriteLine($"⚠️ Error IO, usando nombre alternativo: {ioEx.Message}");
+
+                var nombreAlternativo = $"{NormalizarNombre(nombreRutina)}.jpg";
+                var rutaAlternativa = Path.Combine(_carpetaImagenesUsuario, nombreAlternativo);
+
+                using var fileStream = new FileStream(rutaAlternativa, FileMode.Create, FileAccess.Write);
+                await imagenStream.CopyToAsync(fileStream);
+
+                return rutaAlternativa;
+            }
+        }
+        public async Task<string> ObtenerRutaImagenDefault(string nombreRutina)
+        {
+            var ruta = Path.Combine("Resources", "Images", "RutinasImages","rutina_default.jpg");
+            try
+            {
+                var stream = await FileSystem.OpenAppPackageFileAsync(ruta);
+                stream.Dispose();
+                return ruta;
+            }
+            catch (IOException ioEx)
+            {
+                return null;
+            }
+        }
+        public async Task<string> CopiarImagenEmbebidaAsync(string nombreArchivoEmbebido)
+        {
+            try
+            {
+                if(string.IsNullOrWhiteSpace(nombreArchivoEmbebido)) nombreArchivoEmbebido = "rutina_default.jpg";
+
+                nombreArchivoEmbebido = Path.GetFileName(nombreArchivoEmbebido);
+                nombreArchivoEmbebido = NormalizarNombre(nombreArchivoEmbebido);
+
+                var rutaEmbebida = $"RutinasImages/{nombreArchivoEmbebido}";
+
+                var rutaDestino = Path.Combine(_carpetaImagenesUsuario, nombreArchivoEmbebido);
+                if (File.Exists(rutaDestino))
+                {
+                    Debug.WriteLine($"✅ Imagen ya existe: {rutaDestino}");
+                    return rutaDestino;
+                }
+
+                string[] rutasPosibles =
+                {
+                    nombreArchivoEmbebido,                           
+                    $"RutinasImages/{nombreArchivoEmbebido}",        
+                    $"Images/RutinasImages/{nombreArchivoEmbebido}", 
+                    $"Resources/Images/RutinasImages/{nombreArchivoEmbebido}"
+                };
+
+                Stream stream = null;
+                string rutaEncontrada = null;
+
+                foreach (var ruta in rutasPosibles)
+                {
+                    try
+                    {
+                        stream = await FileSystem.OpenAppPackageFileAsync(ruta);
+                        if (stream != null)
+                        {
+                            rutaEncontrada = ruta;
+                            Debug.WriteLine($"✅ Imagen encontrada en: {ruta}");
+                            break;
+                        }
+                    }
+                    catch (FileNotFoundException)
+                    {                        
+                        continue;
+                    }
+                }
+
+                using (stream)
+                using (var fileStream = new FileStream(rutaDestino, FileMode.Create, FileAccess.Write))
+                {
+                    await stream.CopyToAsync(fileStream);
+                }
+
+                Debug.WriteLine($"✅ Copiada: {nombreArchivoEmbebido} desde {rutaEncontrada ?? "ensamblado"}");
+                return rutaDestino;
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"❌ Error copiando {nombreArchivoEmbebido}: {ex}");
+                return null;
+            }                        
+        }
+        private string NormalizarNombre(string nombre)
+        {
+            return nombre.ToLower()
+                .Replace(" ", "_")
+                .Replace("-", "_")
+                .Replace("/", "_")
+                .Replace("\\", "_")
+                .Replace(":", "")
+                .Replace("?", "")
+                .Replace("*", "");
+        }
+        public void Dispose()
+        {}
+    }
+}

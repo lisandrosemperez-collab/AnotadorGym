@@ -1,0 +1,30 @@
+warning: in the working copy of 'AnotadorGymApp/Resources/Raw/Rutinas.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'AnotadorGymApp/Resources/Raw/RutinasEJEMPLO.json', LF will be replaced by CRLF the next time Git touches it
+AnotadorGymApp.Data/AnotadorGymApp.Data.csproj
+AnotadorGymApp.Data/DataBase.cs
+AnotadorGymApp.Data/DataService.cs
+AnotadorGymApp.Data/Exercise.cs
+AnotadorGymApp.Data/ExerciseJson.cs
+AnotadorGymApp.Data/Migrations/20251226174719_AgregarNotMappedAPropsObservableCollection.Designer.cs
+AnotadorGymApp.Data/Migrations/20251226174719_AgregarNotMappedAPropsObservableCollection.cs
+AnotadorGymApp.Data/Migrations/DataBaseModelSnapshot.cs
+AnotadorGymApp.Data/Muscles.cs
+AnotadorGymApp.Data/Rutinas.cs
+AnotadorGymApp/App.xaml.cs
+AnotadorGymApp/ConfiguracionPage/ConfigPage.xaml.cs
+AnotadorGymApp/MainPage/MainPage.xaml.cs
+AnotadorGymApp/MainPage/SplashPage.xaml.cs
+AnotadorGymApp/MauiProgram.cs
+AnotadorGymApp/MetricasPage/MetricasPage.xaml
+AnotadorGymApp/MetricasPage/MetricasPage.xaml.cs
+AnotadorGymApp/PopUp/BuscarEjerciciosPopUp.xaml.cs
+AnotadorGymApp/RegistroEjercicios/ChartsService.cs
+AnotadorGymApp/RegistroEjercicios/EjercicioConMetricas.cs
+AnotadorGymApp/Resources/Raw/EjerciciosEJEMPLO.json
+AnotadorGymApp/Resources/Raw/Rutinas.json
+AnotadorGymApp/Resources/Raw/RutinasEJEMPLO.json
+AnotadorGymApp/RutinasPage/AgregarRutinaPage.xaml
+AnotadorGymApp/RutinasPage/AgregarRutinaPage.xaml.cs
+AnotadorGymApp/RutinasPage/ComienzoRutinaPage.xaml.cs
+AnotadorGymApp/RutinasPage/PrincipalRutinasPage.xaml.cs
+AnotadorGymApp/Services/ConfigService.cs

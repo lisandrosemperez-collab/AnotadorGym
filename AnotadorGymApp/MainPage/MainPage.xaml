@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AnotadorGymApp.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"    
+    Title="Ejercicios"
+    Shell.NavBarIsVisible="False" BackgroundColor="{DynamicResource BackgroundColor}">
+
+    <Grid RowDefinitions="Auto,*" Padding="0">
+
+        <!-- 🔷 HEADER -->
+        <Border Grid.Row="0" Style="{DynamicResource BorderWithShadowStyle}" StrokeShape="RoundRectangle 0">
+            <Grid Padding="16,10,16,10"
+                  ColumnDefinitions="*,Auto">
+        
+                <!-- Título -->
+                <HorizontalStackLayout Spacing="6"
+                                       VerticalOptions="Center">
+
+                    <Label Text="🏋️"
+                           FontSize="20"
+                           Opacity="0.85"/>
+
+                    <Label Text="Mi Entrenamiento"
+                           TextColor="{DynamicResource PrimaryTextColor}"
+                           FontSize="20"
+                           FontAttributes="Bold"/>
+                </HorizontalStackLayout>
+
+                <!-- Botón config -->
+                <Button Grid.Column="1" x:Name="ConfigButton"
+                        Text="⚙"
+                        Clicked="OnConfigClicked"
+                        FontSize="18"
+                        WidthRequest="38"
+                        HeightRequest="38"
+                        CornerRadius="19"
+                        Padding="0"
+                        BackgroundColor="{DynamicResource GreenPrimary}"
+                        TextColor="White"/>
+            </Grid>
+        </Border>
+
+        <ScrollView Padding="0" Grid.Row="1">
+            <VerticalStackLayout Spacing="20" Margin="0" IsClippedToBounds="False" Padding="30">
+
+            <Border Margin="0" x:Name="IniciarRutinaBorder"
+                    StrokeShape="RoundRectangle 22">
+
+                <Button Text="Comenzar nueva rutina" Style="{DynamicResource PrimaryButton}"
+                        IsVisible="True"
+                        HeightRequest="56"                        
+                        TextColor="White"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        Clicked="IniciarRutinaButton_Clicked"/>
+            </Border>
+
+            <!--RUTINA ACTIVA-->
+            <Border x:Name="RutinaActivaContenedor" Style="{DynamicResource BorderWithShadowStyle}" 
+                    IsVisible="False" Padding="20">
+
+                <Grid RowDefinitions="*, Auto, Auto, Auto" 
+                      ColumnDefinitions="*,*"
+                      RowSpacing="12"
+                      ColumnSpacing="15"
+                      BackgroundColor="Transparent"
+                      BindingContext="{Binding RutinaActiva}">
+
+                    <!-- TÍTULO Y NOMBRE RUTINA -->
+                    <Label Text="🏋️ Rutina Actual:" 
+                           Grid.Row="0" Grid.Column="0"
+                           Style="{DynamicResource Headline}" 
+                           VerticalOptions="Center" HorizontalOptions="End"/>
+
+                    <Label x:Name="NombreRutinaLabel" Style="{DynamicResource Headline}"
+                            Grid.Row="0" Grid.Column="1" MaxLines="4"
+                            Text="{Binding Nombre}"
+                            VerticalOptions="Center"
+                            HorizontalOptions="End"/>
+
+                    <!-- DÍAS COMPLETADOS -->
+                    <Grid Grid.Row="1"
+                          Grid.ColumnSpan="2"
+                          ColumnDefinitions="Auto,*"
+                          ColumnSpacing="8">
+
+                        <Label Text="📅"
+                               FontSize="14"
+                               VerticalOptions="Center"/>
+
+                        <Label Grid.Column="1"
+                               Text="{Binding CountDiasCompletados, StringFormat='Días completados: {0}'}"
+                               FontSize="14"
+                               TextColor="{DynamicResource PrimaryTextColor}"
+                               VerticalOptions="Center"/>
+                    </Grid>
+
+                    <!-- PROGRESO (BARRA) -->
+                    <StackLayout Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Spacing="5">
+                        <Grid ColumnDefinitions="*, Auto" BackgroundColor="Transparent">
+                            <Label Text="Progreso:"
+                                   Grid.Column="0"
+                                   FontSize="13"
+                                   TextColor="{DynamicResource PrimaryTextColor}"/>
+                            <Label Text="{Binding ProgresoRutina, StringFormat='{0:P0}'}"
+                                   Grid.Column="1"
+                                   FontSize="13" FontAttributes="Bold"
+                                   TextColor="{DynamicResource PrimaryTextColor}"/>
+                        </Grid>
+                        <ProgressBar Progress="{Binding ProgresoRutina}"
+                                    ProgressColor="{DynamicResource GreenPrimary}"
+                                    BackgroundColor="{DynamicResource GreenSecondary}"
+                                    HeightRequest="8"/>
+                    </StackLayout>
+
+                    <!-- BOTÓN CONTINUAR -->
+                    <Border Grid.Row="3" Grid.ColumnSpan="2" Style="{DynamicResource BorderWithShadowStyle}">
+
+                        <Button Text="Continuar Rutina" Style="{DynamicResource PrimaryButton}" Clicked="ContinuarRutinaButton_Clicked"
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                HeightRequest="48"
+                                FontSize="14"/>
+                    </Border>
+
+                </Grid>
+            </Border>
+
+            <!--SIN RUTINA ACTIVA-->
+            <Border x:Name="SinRutinaContenedor" Style="{DynamicResource BorderWithShadowStyle}"                  
+                    Margin="0"
+                    Padding="30"                    
+                    IsVisible="False">
+
+                <VerticalStackLayout Spacing="20" IsClippedToBounds="False" BackgroundColor="Transparent">
+
+                    <!-- MENSAJE -->
+                    <Label Text="No tienes rutina activa"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{DynamicResource PrimaryTextColor}"
+                           HorizontalTextAlignment="Center"/>
+
+                    <Label Text="Es un buen momento para empezar."
+                           FontSize="14"
+                           TextColor="{DynamicResource SecondaryTextColor}"
+                           HorizontalTextAlignment="Center"/>
+
+                    <!-- BOTÓN CREAR RUTINA -->                    
+                    <Border Margin="0,15,0,0"
+                            BackgroundColor="{DynamicResource GreenPrimary}"
+                            StrokeShape="RoundRectangle 20">
+
+                        <Button Text="Crear rutina"
+                                HeightRequest="50"
+                                BackgroundColor="Transparent"
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                Clicked="IniciarRutinaButton_Clicked"/>
+                    </Border>
+                </VerticalStackLayout>
+            </Border>
+
+            <!--RESUMEN SEMANAL-->
+            <Border Style="{DynamicResource BorderWithShadowStyle}" Padding="20">
+                <VerticalStackLayout BindingContext="{Binding ResumenSemanal}" x:Name="ResumenSemanalGrid" IsVisible="False" Padding="15" BackgroundColor="Transparent">
+
+                    <Label Text="Resumen semanal"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="{DynamicResource PrimaryTextColor}"/>
+
+                    <Label Text="{Binding RangoSemanasDisplay}"
+                           FontSize="12"
+                           TextColor="{DynamicResource SecondaryTextColor}"/>
+                    
+                    <Grid ColumnDefinitions="*, *, *, *">
+
+                        <!-- DÍAS ENTRENADOS -->
+                        <VerticalStackLayout Grid.Column="0" BackgroundColor="Transparent">
+                            <Label Text="{Binding DiasEntrenados}"
+                                    FontSize="16"
+                                    FontAttributes="Bold"/>
+                            <Label Text="Días"
+                                   FontSize="11"
+                                   TextColor="{DynamicResource SecondaryTextColor}"/>
+                        </VerticalStackLayout>
+
+                        <!-- VOLUMEN SEMANAL -->
+                        <VerticalStackLayout Grid.Column="1" BackgroundColor="Transparent">
+                            <Label Text="{Binding VolumenTotal, StringFormat='{0:F0}'}" 
+                                    FontSize="16" FontAttributes="Bold" />
+                            <Label Text="Volumen" FontSize="11" 
+                                   TextColor="{DynamicResource SecondaryTextColor}"/>
+                        </VerticalStackLayout>
+
+                        <!-- EJERCICIOS SEMANALES -->
+                        <VerticalStackLayout Grid.Column="2" BackgroundColor="Transparent">
+                            <Label Text="{Binding EjerciciosTotal}" 
+                                   FontSize="16" FontAttributes="Bold" />
+                            <Label Text="Ejercicios" FontSize="11" 
+                                   TextColor="{DynamicResource SecondaryTextColor}"/>
+                        </VerticalStackLayout>
+
+                        <!-- SERIES SEMANALES -->
+                        <VerticalStackLayout Grid.Column="3" BackgroundColor="Transparent">
+                            <Label Text="{Binding SeriesTotal}" 
+                                   FontSize="16" FontAttributes="Bold" />
+                            <Label Text="Series" FontSize="11" 
+                                    TextColor="{DynamicResource SecondaryTextColor}"/>
+                        </VerticalStackLayout>
+
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- SIN DATOS SEMANALES -->
+            <Border Style="{DynamicResource BorderWithShadowStyle}" 
+                    Margin="0,10,0,0"      Padding="20"               
+                    x:Name="SinDatosSemanalesContenedor"
+                    IsVisible="False">
+
+                <HorizontalStackLayout Spacing="12" Padding="15" VerticalOptions="Center" BackgroundColor="Transparent">
+                    <Label Text="📈" FontSize="16" VerticalOptions="Center"/>
+
+                    <VerticalStackLayout Spacing="2" BackgroundColor="Transparent">
+                        <Label Text="Sin actividad esta semana" 
+                               Style="{DynamicResource Headline}"></Label>
+                        <Label Text="0 entrenamientos registrados" 
+                               Style="{DynamicResource SubHeadline}"></Label>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+            </Border>
+                        
+            <!--RESUMEN DEL DIA-->
+            <Border Style="{DynamicResource BorderWithShadowStyle}" x:Name="WorkutDayBorder" IsVisible="False"
+                    Margin="0"
+                    Padding="20"
+                    BackgroundColor="{DynamicResource CardBackground}"
+                    Stroke="{DynamicResource BorderColor}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 24">
+                <VerticalStackLayout BindingContext="{Binding DiaEntrenamiento}" x:Name="WorkutDayGrid" IsVisible="True" Spacing="18" BackgroundColor="Transparent">
+                    <!-- TÍTULO RESUMEN -->
+                    <Label Text="Resumen del Día"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="{DynamicResource PrimaryTextColor}"/>
+                    
+                    <!-- RESUMEN EN 3 COLUMNAS -->
+                    <Grid ColumnDefinitions="*, *, *">
+
+                        <!-- VOLUMEN TOTAL -->
+                        <VerticalStackLayout  Grid.Column="0" HorizontalOptions="Center" BackgroundColor="Transparent">
+                            <Label Text="{Binding VolumenTotal, StringFormat='{0:F0}'}"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="{DynamicResource PrimaryTextColor}"/>
+                            <Label Text="Volumen"
+                                   FontSize="12"
+                                   TextColor="{DynamicResource SecondaryTextColor}"/>
+                        </VerticalStackLayout>
+
+                        <!-- EJERCICIOS TOTAL -->
+                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" BackgroundColor="Transparent">
+                            <Label Text="{Binding EjerciciosTotal}" 
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="{DynamicResource PrimaryTextColor}"/>
+                            <Label Text="Ejercicios"
+                                   FontSize="12"
+                                   TextColor="{DynamicResource SecondaryTextColor}"/>
+                        </VerticalStackLayout>
+
+                        <!-- SERIES TOTAL -->
+                        <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" BackgroundColor="Transparent">
+                            <Label Text="{Binding SeriesTotal}"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="{DynamicResource PrimaryTextColor}"/>
+                            <Label Text="Series"
+                                   FontSize="12"
+                                   TextColor="{DynamicResource SecondaryTextColor}"/>
+                        </VerticalStackLayout>
+
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!--RESUMEN DE EJERCICIOS-->
+            <Border Style="{DynamicResource BorderWithShadowStyle}" x:Name="ExerciseLogBorder"                    
+                    Padding="20"
+                    BackgroundColor="{DynamicResource CardBackground}"
+                    Stroke="{DynamicResource BorderColor}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 24">
+                <CollectionView x:Name="ExerciseLogCollectionView" 
+                    ItemsSource="{Binding DiaEntrenamiento.RegistroEjercicios}"
+                    SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="18"
+                                    Margin="0,0,0,1"
+                                    BackgroundColor="Transparent">
+
+                                <VerticalStackLayout BackgroundColor="Transparent" Spacing="8">
+
+                                    <!-- NOMBRE EJERCICIO -->
+                                    <Label Text="{Binding Ejercicio.Nombre}" 
+                                           FontAttributes="Bold"
+                                           FontSize="15"                                           
+                                           TextColor="{DynamicResource PrimaryTextColor}"/>
+                                    
+                                    <!-- Métricas -->
+                                    <Grid ColumnDefinitions="*,*,*">
+
+                                        <Label Text="{Binding TotalSeries, StringFormat='Series: {0}'}"
+                                               FontSize="13"
+                                               TextColor="{DynamicResource SecondaryTextColor}"/>
+
+                                        <Label Grid.Column="1"
+                                               Text="{Binding PesoMaximo, StringFormat='{0:F1} kg'}"
+                                               FontSize="13"
+                                               TextColor="{DynamicResource SecondaryTextColor}"
+                                               HorizontalTextAlignment="Center"/>
+
+                                        <Label Grid.Column="2"
+                                               Text="{Binding VolumenTotal, StringFormat='{0:F0} kg Volumen'}"
+                                               FontSize="13"
+                                               FontAttributes="Bold"
+                                               TextColor="{DynamicResource PrimaryTextColor}"
+                                               HorizontalTextAlignment="End"/>
+
+                                    </Grid>
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Border>
+
+        </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+    
+</ContentPage>

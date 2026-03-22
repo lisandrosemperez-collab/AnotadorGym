@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             x:Class="AnotadorGymApp.RutinasPage.PrincipalRutinasPage"  
+             xmlns:model="clr-namespace:AnotadorGymApp.Data.Models.Entities;assembly=AnotadorGymApp.Data"
+             Shell.NavBarIsVisible="False"
+             Title="Rutinas"
+             x:Name="PrincipalRutinas">
+
+
+    <Grid IsClippedToBounds="False" RowSpacing="10" Padding="20" BackgroundColor="{DynamicResource CardBackground}" RowDefinitions="Auto,Auto,*">
+
+            <Border Margin="20,0,20,8" Style="{DynamicResource BorderWithShadowStyle}" Grid.Row="0">
+                <VerticalStackLayout>
+                    <Button Text="Crear rutina Nueva"
+                            HeightRequest="56"                        
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            Clicked="AñadirRutinaButton_Clicked"/>
+                    
+                    <Label Text="Crea una rutina completa antes de comenzar" Opacity="0.7" 
+                           BackgroundColor="{DynamicResource CardBackground}"
+                           HorizontalTextAlignment="Center"></Label>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Margin="20,0,20,20" Style="{DynamicResource BorderWithShadowStyle}" Grid.Row="1"                        
+                    BackgroundColor="{DynamicResource CardBackground}">
+
+                <VerticalStackLayout>
+                    <Button Text="Entrenamiento rápido" Clicked="EntrenamientoRapido_Clicked"
+                                    HeightRequest="56"
+                                    BackgroundColor="Transparent"
+                                    TextColor="{DynamicResource PrimaryTextColor}"
+                                    FontSize="15"></Button>                                    
+
+                    <Label Text="Empieza una rutina vacía y agrega ejercicios mientras entrenas"
+                                   FontSize="12" BackgroundColor="{DynamicResource CardBackground}"
+                                   Opacity="0.7"
+                                   HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <CollectionView ItemsSource="{Binding rutinas}" Margin="20,0,20,20" ItemSizingStrategy="MeasureFirstItem" Grid.Row="2">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="10" Orientation="Vertical"></LinearItemsLayout>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Rutinas">
+                        <Border Style="{DynamicResource BorderWithOutShadowStyle}">
+
+                            <Grid RowDefinitions="180,Auto" RowSpacing="0" Padding="0">
+
+                                <!-- FILA 0: IMAGEN -->
+                                <Grid Grid.Row="0" Padding="0">
+                                    <Image Source="{Binding ImageSource}" IsVisible="{Binding TieneImagen}"
+                                               Aspect="AspectFill"
+                                               HeightRequest="180"/>
+
+                                    <BoxView BackgroundColor="#15FFFFFF"/>
+
+                                <HorizontalStackLayout
+                                    HorizontalOptions="End"
+                                    VerticalOptions="Start"
+                                    Margin="10"
+                                    Spacing="6">
+
+                                    <!-- Editar -->
+                                    <Button Text="✏️"
+                                        WidthRequest="36"
+                                        HeightRequest="36"                                        
+                                        CornerRadius="18"
+                                        FontSize="18"
+                                        Padding="0"
+                                        BackgroundColor="{DynamicResource CardBackground}"
+                                        Command="{Binding BindingContext.EditRutinaCommand, Source={x:Reference PrincipalRutinas}}"
+                                        CommandParameter="{Binding .}"/>
+
+                                    <!-- Eliminar -->
+                                    <Button Text="🗑"
+                                        WidthRequest="36"
+                                        HeightRequest="36"                                        
+                                        CornerRadius="18"
+                                        FontSize="18"
+                                        Padding="0"
+                                        BackgroundColor="{DynamicResource CardBackground}"
+                                        Command="{Binding BindingContext.EliminarRutinaCommand, Source={x:Reference PrincipalRutinas}}"
+                                        CommandParameter="{Binding .}"/>
+
+                                </HorizontalStackLayout>
+                            </Grid>
+
+                                <!-- FILA 1: CONTENIDO -->
+                                <VerticalStackLayout BackgroundColor="Transparent"
+                                                        Grid.Row="1"
+                                                        Padding="20"
+                                                        Spacing="10">
+
+                                    <!-- Nombre -->
+                                    <Label Text="{Binding Nombre}"
+                                                FontSize="18"
+                                                FontAttributes="Bold"
+                                                TextColor="{DynamicResource PrimaryTextColor}"/>
+
+                                    <!-- Info secundaria -->
+                                    <HorizontalStackLayout Spacing="20">
+                                        <Label Text="{Binding Semanas.Count, StringFormat='Semanas: {0}'}"
+                                                    FontSize="13"
+                                                    TextColor="{DynamicResource SecondaryTextColor}"/>
+
+                                        <Label Text="{Binding CountDiasPrimeraSemana, StringFormat='Días: {0}'}"
+                                                    FontSize="13"
+                                                    TextColor="{DynamicResource SecondaryTextColor}"/>
+                                    </HorizontalStackLayout>
+
+                                    <!-- Descripción -->
+                                    <Label Text="{Binding Descripcion}"
+                                               FontSize="14"
+                                               LineBreakMode="WordWrap"
+                                               TextColor="{DynamicResource SecondaryTextColor}"/>
+
+                                    <Border Style="{DynamicResource BorderWithShadowStyle}">
+
+                                        <Button Text="Comenzar rutina"
+                                                    HeightRequest="44"
+                                                    BackgroundColor="Transparent"
+                                                    TextColor="{DynamicResource PrimaryTextColor}"                                                    
+                                                    Command="{Binding BindingContext.StarRutinaCommand,Source={x:Reference PrincipalRutinas}}"
+                                                    CommandParameter="{Binding .}"/>
+                                    </Border>
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    
+            
+</ContentPage>

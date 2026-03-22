@@ -1,0 +1,526 @@
+[
+  {
+    "Nombre": "Curl de B\u00EDceps con Barra Recta",
+    "EjercicioId": 0,
+    "GrupoMuscular": {
+      "GrupoMuscularId": 0,
+      "Nombre": "Brazos"
+    },
+    "MusculoPrimario": {
+      "MusculoId": 0,
+      "Nombre": "B\u00EDceps Braquial"
+    },
+    "MusculosSecundarios": [
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquiorradial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Flexores de la mu\u00F1eca"
+      }
+    ],
+    "Descripcion": null
+  },
+  {
+    "Nombre": "Curl de B\u00EDceps con Barra Z",
+    "EjercicioId": 0,
+    "GrupoMuscular": {
+      "GrupoMuscularId": 0,
+      "Nombre": "Brazos"
+    },
+    "MusculoPrimario": {
+      "MusculoId": 0,
+      "Nombre": "B\u00EDceps Braquial"
+    },
+    "MusculosSecundarios": [
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquiorradial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Flexores de la mu\u00F1eca"
+      }
+    ],
+    "Descripcion": null
+  },
+  {
+    "Nombre": "Curl de B\u00EDceps con Barra en Banco Scott",
+    "EjercicioId": 0,
+    "GrupoMuscular": {
+      "GrupoMuscularId": 0,
+      "Nombre": "Brazos"
+    },
+    "MusculoPrimario": {
+      "MusculoId": 0,
+      "Nombre": "B\u00EDceps Braquial"
+    },
+    "MusculosSecundarios": [
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquiorradial"
+      }
+    ],
+    "Descripcion": null
+  },
+  {
+    "Nombre": "Curl de B\u00EDceps con Barra en Banco Predicador",
+    "EjercicioId": 0,
+    "GrupoMuscular": {
+      "GrupoMuscularId": 0,
+      "Nombre": "Brazos"
+    },
+    "MusculoPrimario": {
+      "MusculoId": 0,
+      "Nombre": "B\u00EDceps Braquial"
+    },
+    "MusculosSecundarios": [
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquiorradial"
+      }
+    ],
+    "Descripcion": null
+  },
+  {
+    "Nombre": "Curl de B\u00EDceps con Barra Invertido (Supinaci\u00F3n)",
+    "EjercicioId": 0,
+    "GrupoMuscular": {
+      "GrupoMuscularId": 0,
+      "Nombre": "Brazos"
+    },
+    "MusculoPrimario": {
+      "MusculoId": 0,
+      "Nombre": "Braquiorradial"
+    },
+    "MusculosSecundarios": [
+      {
+        "MusculoId": 0,
+        "Nombre": "B\u00EDceps Braquial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Extensores de la mu\u00F1eca"
+      }
+    ],
+    "Descripcion": null
+  },
+  {
+    "Nombre": "Curl de B\u00EDceps con Barra 21\u0027s",
+    "EjercicioId": 0,
+    "GrupoMuscular": {
+      "GrupoMuscularId": 0,
+      "Nombre": "Brazos"
+    },
+    "MusculoPrimario": {
+      "MusculoId": 0,
+      "Nombre": "B\u00EDceps Braquial"
+    },
+    "MusculosSecundarios": [
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquiorradial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Flexores de la mu\u00F1eca"
+      }
+    ],
+    "Descripcion": null
+  },
+  {
+    "Nombre": "Curl de B\u00EDceps Alternado con Mancuernas",
+    "EjercicioId": 0,
+    "GrupoMuscular": {
+      "GrupoMuscularId": 0,
+      "Nombre": "Brazos"
+    },
+    "MusculoPrimario": {
+      "MusculoId": 0,
+      "Nombre": "B\u00EDceps Braquial"
+    },
+    "MusculosSecundarios": [
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquiorradial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Flexores de la mu\u00F1eca"
+      }
+    ],
+    "Descripcion": null
+  },
+  {
+    "Nombre": "Curl de B\u00EDceps Simult\u00E1neo con Mancuernas",
+    "EjercicioId": 0,
+    "GrupoMuscular": {
+      "GrupoMuscularId": 0,
+      "Nombre": "Brazos"
+    },
+    "MusculoPrimario": {
+      "MusculoId": 0,
+      "Nombre": "B\u00EDceps Braquial"
+    },
+    "MusculosSecundarios": [
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquiorradial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Flexores de la mu\u00F1eca"
+      }
+    ],
+    "Descripcion": null
+  },
+  {
+    "Nombre": "Curl de B\u00EDceps con Mancuernas en Banco Inclinado",
+    "EjercicioId": 0,
+    "GrupoMuscular": {
+      "GrupoMuscularId": 0,
+      "Nombre": "Brazos"
+    },
+    "MusculoPrimario": {
+      "MusculoId": 0,
+      "Nombre": "B\u00EDceps Braquial"
+    },
+    "MusculosSecundarios": [
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquiorradial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Deltoides Anterior"
+      }
+    ],
+    "Descripcion": null
+  },
+  {
+    "Nombre": "Curl de B\u00EDceps con Mancuerna en Banco Scott",
+    "EjercicioId": 0,
+    "GrupoMuscular": {
+      "GrupoMuscularId": 0,
+      "Nombre": "Brazos"
+    },
+    "MusculoPrimario": {
+      "MusculoId": 0,
+      "Nombre": "B\u00EDceps Braquial"
+    },
+    "MusculosSecundarios": [
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquiorradial"
+      }
+    ],
+    "Descripcion": null
+  },
+  {
+    "Nombre": "Curl de B\u00EDceps con Mancuernas en Banco Predicador",
+    "EjercicioId": 0,
+    "GrupoMuscular": {
+      "GrupoMuscularId": 0,
+      "Nombre": "Brazos"
+    },
+    "MusculoPrimario": {
+      "MusculoId": 0,
+      "Nombre": "B\u00EDceps Braquial"
+    },
+    "MusculosSecundarios": [
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquiorradial"
+      }
+    ],
+    "Descripcion": null
+  },
+  {
+    "Nombre": "Curl de B\u00EDceps con Mancuerna a Una Mano",
+    "EjercicioId": 0,
+    "GrupoMuscular": {
+      "GrupoMuscularId": 0,
+      "Nombre": "Brazos"
+    },
+    "MusculoPrimario": {
+      "MusculoId": 0,
+      "Nombre": "B\u00EDceps Braquial"
+    },
+    "MusculosSecundarios": [
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquiorradial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Flexores de la mu\u00F1eca"
+      }
+    ],
+    "Descripcion": null
+  },
+  {
+    "Nombre": "Curl de B\u00EDceps con Mancuernas Sentado",
+    "EjercicioId": 0,
+    "GrupoMuscular": {
+      "GrupoMuscularId": 0,
+      "Nombre": "Brazos"
+    },
+    "MusculoPrimario": {
+      "MusculoId": 0,
+      "Nombre": "B\u00EDceps Braquial"
+    },
+    "MusculosSecundarios": [
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquiorradial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Flexores de la mu\u00F1eca"
+      }
+    ],
+    "Descripcion": null
+  },
+  {
+    "Nombre": "Curl de B\u00EDceps con Mancuernas de Pie",
+    "EjercicioId": 0,
+    "GrupoMuscular": {
+      "GrupoMuscularId": 0,
+      "Nombre": "Brazos"
+    },
+    "MusculoPrimario": {
+      "MusculoId": 0,
+      "Nombre": "B\u00EDceps Braquial"
+    },
+    "MusculosSecundarios": [
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquiorradial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Flexores de la mu\u00F1eca"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Core"
+      }
+    ],
+    "Descripcion": null
+  },
+  {
+    "Nombre": "Curl de B\u00EDceps con Mancuerna en Concentraci\u00F3n",
+    "EjercicioId": 0,
+    "GrupoMuscular": {
+      "GrupoMuscularId": 0,
+      "Nombre": "Brazos"
+    },
+    "MusculoPrimario": {
+      "MusculoId": 0,
+      "Nombre": "B\u00EDceps Braquial"
+    },
+    "MusculosSecundarios": [
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquiorradial"
+      }
+    ],
+    "Descripcion": null
+  },
+  {
+    "Nombre": "Curl de B\u00EDceps con Mancuernas en Banco Inclinado Prono",
+    "EjercicioId": 0,
+    "GrupoMuscular": {
+      "GrupoMuscularId": 0,
+      "Nombre": "Brazos"
+    },
+    "MusculoPrimario": {
+      "MusculoId": 0,
+      "Nombre": "B\u00EDceps Braquial"
+    },
+    "MusculosSecundarios": [
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquiorradial"
+      }
+    ],
+    "Descripcion": null
+  },
+  {
+    "Nombre": "curl de b\u00EDceps con mancuernas en \u00E1ngulo 90\u00B0",
+    "EjercicioId": 0,
+    "GrupoMuscular": {
+      "GrupoMuscularId": 0,
+      "Nombre": "Brazos"
+    },
+    "MusculoPrimario": {
+      "MusculoId": 0,
+      "Nombre": "B\u00EDceps Braquial"
+    },
+    "MusculosSecundarios": [
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquiorradial"
+      }
+    ],
+    "Descripcion": null
+  },
+  {
+    "Nombre": "Curl de B\u00EDceps en Polea Alta con Barra Recta",
+    "EjercicioId": 0,
+    "GrupoMuscular": {
+      "GrupoMuscularId": 0,
+      "Nombre": "Brazos"
+    },
+    "MusculoPrimario": {
+      "MusculoId": 0,
+      "Nombre": "B\u00EDceps Braquial"
+    },
+    "MusculosSecundarios": [
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquiorradial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Flexores de la mu\u00F1eca"
+      }
+    ],
+    "Descripcion": null
+  },
+  {
+    "Nombre": "Curl de B\u00EDceps en Polea Alta con Barra Z",
+    "EjercicioId": 0,
+    "GrupoMuscular": {
+      "GrupoMuscularId": 0,
+      "Nombre": "Brazos"
+    },
+    "MusculoPrimario": {
+      "MusculoId": 0,
+      "Nombre": "B\u00EDceps Braquial"
+    },
+    "MusculosSecundarios": [
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Braquiorradial"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Flexores de la mu\u00F1eca"
+      }
+    ],
+    "Descripcion": null
+  },
+  {
+    "Nombre": "Battle Ropes con Movimiento de Piernas",
+    "EjercicioId": 0,
+    "GrupoMuscular": {
+      "GrupoMuscularId": 0,
+      "Nombre": "Full Body"
+    },
+    "MusculoPrimario": {
+      "MusculoId": 0,
+      "Nombre": "Core"
+    },
+    "MusculosSecundarios": [
+      {
+        "MusculoId": 0,
+        "Nombre": "Cu\u00E1driceps"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Gl\u00FAteos"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Deltoides Anterior"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Deltoides Lateral"
+      },
+      {
+        "MusculoId": 0,
+        "Nombre": "Trapecio"
+      }
+    ],
+    "Descripcion": null
+  }
+]
