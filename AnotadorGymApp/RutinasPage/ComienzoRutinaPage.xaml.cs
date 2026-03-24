@@ -24,6 +24,7 @@ public partial class ComienzoRutinaPage : ContentPage, INotifyPropertyChanged
     private readonly RutinaService rutinaService;
     private readonly EjercicioService ejercicioService;
     private readonly RegistrosService registrosService;
+    private bool _saliendo = false;
     public int RutinaId { get; set; }
     public Rutinas RutinaActual { get; set; } = new Rutinas();
     public DiaEntrenamiento DiaEntrenamientoActual { get; set; } = new DiaEntrenamiento();    
@@ -354,24 +355,41 @@ public partial class ComienzoRutinaPage : ContentPage, INotifyPropertyChanged
     }       
     
     #endregion
-    private async void Finalizar_Clicked(object sender, EventArgs e)
+    protected void OnPropertyChanged(string propertyName)
     {
-        RutinaDia dia = CollectionDias.SelectedItem as RutinaDia;
-        if (SerieActual == null)
-        {            
-            bool resul = await DisplayAlert("Finalizar","¿ Desea Finalizar la rutina y guardarla ?", "Guardar", "Cancelar");            
-            if(resul && dia != null)
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+    private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    {               
+        if (sender is Microsoft.Maui.Controls.Grid Grid)
+        {
+            CollectionView CvSeries = Grid.FindByName("CvSeries") as CollectionView;
+            Border AñadirSeriesBorder = Grid.FindByName("AñadirSeriesBorder") as Border;
+            
+            if (CvSeries.IsVisible)
             {
-                TotalTimer.Stop();
-                RestTimer.Stop();
-                ctsTotalTimer.Cancel();
-                await rutinaService.ActivarRutina(RutinaActual);
+                await CvSeries.FadeTo(0, 250);
+                CvSeries.IsVisible = false;
+                AñadirSeriesBorder.IsVisible = false;
+            }
+            else
+            {
+                AñadirSeriesBorder.IsVisible = true;
+                CvSeries.IsVisible = true;
+                await CvSeries.FadeTo(1, 250);
 
-                await Shell.Current.Navigation.PopToRootAsync();
-                await Shell.Current.GoToAsync("//MainPage");
+                if (CvSeries.ItemsSource is ObservableCollection<RutinaSeries> series)
+                {
+                    var listSeries = series.ToList();
+                    series = rutinaService.InicializarTempDescanso(listSeries, OnSerieDescansoTerminado).ToObservableCollection();
+
+                }                
             }
         }
-        else {await DisplayAlert("Termine el Ejercicio", "Termine y Guarde el Ejercicio antes de Finalizar", "OK"); }
+    }
+    private async void Finalizar_Clicked(object sender, EventArgs e)
+    {
+        await ManejarSalidaAsync();
     }    
     protected override async void OnAppearing()
     {
@@ -423,39 +441,50 @@ public partial class ComienzoRutinaPage : ContentPage, INotifyPropertyChanged
         BindingContext = this;
     }
     protected override void OnDisappearing(){}
-    protected void OnPropertyChanged(string propertyName)
+    protected override bool OnBackButtonPressed()
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-    private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
-    {               
-        if (sender is Microsoft.Maui.Controls.Grid Grid)
+        MainThread.BeginInvokeOnMainThread(async () =>
         {
-            CollectionView CvSeries = Grid.FindByName("CvSeries") as CollectionView;
-            Border AñadirSeriesBorder = Grid.FindByName("AñadirSeriesBorder") as Border;
-            
-            if (CvSeries.IsVisible)
-            {
-                await CvSeries.FadeTo(0, 250);
-                CvSeries.IsVisible = false;
-                AñadirSeriesBorder.IsVisible = false;
-            }
-            else
-            {
-                AñadirSeriesBorder.IsVisible = true;
-                CvSeries.IsVisible = true;
-                await CvSeries.FadeTo(1, 250);
+            await ManejarSalidaAsync();
+        });
 
-                if (CvSeries.ItemsSource is ObservableCollection<RutinaSeries> series)
-                {
-                    var listSeries = series.ToList();
-                    series = rutinaService.InicializarTempDescanso(listSeries, OnSerieDescansoTerminado).ToObservableCollection();
-
-                }                
-            }
-        }
+        return true;
     }
-    
+    private async Task ManejarSalidaAsync()
+    {
+        if (_saliendo) return;
+        _saliendo = true;
+        try
+        {
+            RutinaDia dia = CollectionDias.SelectedItem as RutinaDia;
+            if (SerieActual == null)
+            {
+                bool resul = await DisplayAlert("Finalizar", "¿ Desea Finalizar la rutina y guardarla ?", "Guardar", "Cancelar");
+                if (resul && dia != null)
+                {
+                    TotalTimer.Stop();
+                    RestTimer.Stop();
+                    ctsTotalTimer.Cancel();
+                    await rutinaService.ActivarRutina(RutinaActual);
+                    await Shell.Current.Navigation.PopToRootAsync();
+                    await Shell.Current.GoToAsync("//MainPage",animate: true);
+                }
+            }
+            else { await DisplayAlert("Termine el Ejercicio", "Termine y Guarde el Ejercicio antes de Finalizar", "OK"); }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"❌ Error al salir: {ex.Message}");
+            await DisplayAlert("Error", $"No se pudo guardar: {ex.Message}", "OK");
+        }
+        finally
+        {
+            IsBusy = false;
+            _saliendo = false;
+        }
+
+    }
+
 }
 public class TupleConverter : IMultiValueConverter
 {

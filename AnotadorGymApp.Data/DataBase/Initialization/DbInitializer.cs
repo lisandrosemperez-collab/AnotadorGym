@@ -50,7 +50,7 @@ namespace AnotadorGymApp.Data.DataBase.Initialization
             
 #if DEBUG
                 await new DebugDiaEntrenamientosPrueba().ImportAsync(diasEntrenamientoPrueba,db);
-#endif            
+#endif
         }
     }
 }

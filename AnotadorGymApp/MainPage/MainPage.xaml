@@ -42,7 +42,7 @@
         </Border>
 
         <ScrollView Padding="0" Grid.Row="1">
-            <VerticalStackLayout Spacing="20" Margin="0" IsClippedToBounds="False" Padding="30">
+            <VerticalStackLayout Spacing="15" Margin="0" IsClippedToBounds="False" Padding="30">
 
             <Border Margin="0" x:Name="IniciarRutinaBorder"
                     StrokeShape="RoundRectangle 22">
@@ -295,9 +295,12 @@
                     Stroke="{DynamicResource BorderColor}"
                     StrokeThickness="1"
                     StrokeShape="RoundRectangle 24">
-                <CollectionView x:Name="ExerciseLogCollectionView" 
+                <CollectionView x:Name="ExerciseLogCollectionView"
                     ItemsSource="{Binding DiaEntrenamiento.RegistroEjercicios}"
                     SelectionMode="None">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="8"></LinearItemsLayout>
+                        </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Border Padding="18"

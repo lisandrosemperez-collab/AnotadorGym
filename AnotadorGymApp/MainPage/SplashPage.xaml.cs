@@ -113,15 +113,17 @@ public partial class SplashPage : ContentPage, INotifyPropertyChanged
 
             if (necesitaEjercicios)
             {
-                ejercicios = await _configService.CargarDatosInicialesEjercicios();
+                ejercicios = await _configService.CargarDatosInicialesEjercicios() ?? new EjerciciosSource();
             }
 
             if (necesitaRutinas)
             {
-                rutinas = await _configService.CargarDatosInicialesRutinas();
+                rutinas = await _configService.CargarDatosInicialesRutinas() ?? new RutinasSource();
             }
-            
-            var diasDeEjercicios = await _configService.CargarDiaEntrenamientoPruebas();
+
+#if DEBUG
+            var diasDeEjercicios = await _configService.CargarDiaEntrenamientoPruebas() ?? new List<DiaEntrenamiento>();
+#endif
 
             await _dbInitializer.InitializeAsync(estado.PrimerArranque, progress, ejercicios, rutinas, diasDeEjercicios, token);
 

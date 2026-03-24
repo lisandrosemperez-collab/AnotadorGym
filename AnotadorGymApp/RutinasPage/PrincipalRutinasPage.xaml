@@ -18,7 +18,7 @@
                             FontAttributes="Bold"
                             Clicked="AñadirRutinaButton_Clicked"/>
                     
-                    <Label Text="Crea una rutina completa antes de comenzar" Opacity="0.7" 
+                    <Label Text="Crea una rutina completa antes de comenzar" Opacity="0.7" FontSize="14"
                            BackgroundColor="{DynamicResource CardBackground}"
                            HorizontalTextAlignment="Center"></Label>
                 </VerticalStackLayout>
@@ -35,13 +35,13 @@
                                     FontSize="15"></Button>                                    
 
                     <Label Text="Empieza una rutina vacía y agrega ejercicios mientras entrenas"
-                                   FontSize="12" BackgroundColor="{DynamicResource CardBackground}"
+                                   FontSize="14" BackgroundColor="{DynamicResource CardBackground}"
                                    Opacity="0.7"
                                    HorizontalTextAlignment="Center"/>
                 </VerticalStackLayout>
             </Border>
 
-            <CollectionView ItemsSource="{Binding rutinas}" Margin="20,0,20,20" ItemSizingStrategy="MeasureFirstItem" Grid.Row="2">
+            <CollectionView ItemsSource="{Binding rutinas}" Margin="20,0,20,20" ItemSizingStrategy="MeasureAllItems" Grid.Row="2">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout ItemSpacing="10" Orientation="Vertical"></LinearItemsLayout>
                 </CollectionView.ItemsLayout>

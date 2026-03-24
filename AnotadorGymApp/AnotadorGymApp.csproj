@@ -33,6 +33,63 @@
 	<PropertyGroup>
 		<HotReloadEnabled>false</HotReloadEnabled>
 		<HotReloadSupport>true</HotReloadSupport>
+		<SignAssembly>False</SignAssembly>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android35.0|AnyCPU'">
+	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+	  <AndroidKeyStore>False</AndroidKeyStore>	  
+	  <AndroidSigningKeyAlias>anotadorgym</AndroidSigningKeyAlias>	  
+	  <ApplicationTitle>Anotador Gym</ApplicationTitle>
+	  <ApplicationId>com.lisandrosemperez.anotadorgymapp</ApplicationId>
+	  <DebugType>portable</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android35.0|AnyCPU'">
+	  <AndroidKeyStore>False</AndroidKeyStore>
+	  <AndroidSigningStorePass>Daniel1234567899</AndroidSigningStorePass>
+	  <AndroidSigningKeyAlias>anotadorgym</AndroidSigningKeyAlias>
+	  <AndroidSigningKeyPass>Daniel1234567899</AndroidSigningKeyPass>
+	  <ApplicationTitle>Anotador Gym</ApplicationTitle>
+	  <ApplicationId>com.lisandrosemperez.anotadorgymapp</ApplicationId>
+	  <DebugType>portable</DebugType>
+	  <AndroidPackageFormat>apk</AndroidPackageFormat>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-maccatalyst18.0|AnyCPU'">
+	  <ApplicationTitle>Anotador Gym</ApplicationTitle>
+	  <ApplicationId>com.lisandrosemperez.anotadorgymapp</ApplicationId>
+	  <DebugType>portable</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-ios18.0|AnyCPU'">
+	  <ApplicationTitle>Anotador Gym</ApplicationTitle>
+	  <ApplicationId>com.lisandrosemperez.anotadorgymapp</ApplicationId>
+	  <DebugType>portable</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-windows10.0.19041.0|AnyCPU'">
+	  <ApplicationTitle>Anotador Gym</ApplicationTitle>
+	  <ApplicationId>com.lisandrosemperez.anotadorgymapp</ApplicationId>
+	  <DebugType>portable</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-maccatalyst18.0|AnyCPU'">
+	  <ApplicationTitle>Anotador Gym</ApplicationTitle>
+	  <ApplicationId>com.lisandrosemperez.anotadorgymapp</ApplicationId>
+	  <DebugType>portable</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-ios18.0|AnyCPU'">
+	  <ApplicationTitle>Anotador Gym</ApplicationTitle>
+	  <ApplicationId>com.lisandrosemperez.anotadorgymapp</ApplicationId>
+	  <DebugType>portable</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-windows10.0.19041.0|AnyCPU'">
+	  <ApplicationTitle>Anotador Gym</ApplicationTitle>
+	  <ApplicationId>com.lisandrosemperez.anotadorgymapp</ApplicationId>
+	  <DebugType>portable</DebugType>
 	</PropertyGroup>
 	
 	<ItemGroup>

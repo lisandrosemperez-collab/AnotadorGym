@@ -11,7 +11,7 @@
 
 
     <TabBar>
-        <Tab Title="Ejercicios" Icon="ejercicios">
+        <Tab Title="Entrenamiento" Icon="ejercicios">
             <ShellContent Route="MainPage" ContentTemplate="{DataTemplate local:MainPage}"></ShellContent>
         </Tab>
         <Tab Title="Rutinas" Icon="rutinas">

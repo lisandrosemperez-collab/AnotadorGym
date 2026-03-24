@@ -195,6 +195,7 @@ namespace AnotadorGymApp.Data.Models.Entities
         {
             if (e.PropertyName == nameof(RutinaSeries.EstadoSerie))
             {
+                OnPropertyChanged(nameof(SeriesTotales));
                 OnPropertyChanged(nameof(SeriesCompletadas));
                 OnPropertyChanged(nameof(ProgresoSeriesFormateado));
             }

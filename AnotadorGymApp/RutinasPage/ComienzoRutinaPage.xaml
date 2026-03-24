@@ -168,11 +168,11 @@
             </Grid.RowDefinitions>
             <Label Grid.Column="0" x:Name="lblrutina" Text="{Binding Nombre}" VerticalOptions="Center" TextColor="Black" FontAttributes="Bold"></Label>
 
-            <Label Grid.Row="1"
+            <Label Grid.Row="1" FontSize="14"
                        Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},Path=Tiempo,StringFormat='Total: {0}'}"></Label>
-            <Label Grid.Row="1" Grid.Column="1"
+            <Label Grid.Row="1" Grid.Column="1" FontSize="14"
                        Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},Path=tiempoactivo,StringFormat='Activo: {0}'}"></Label>
-            <Label Grid.Row="1" Grid.Column="2"
+            <Label Grid.Row="1" Grid.Column="2" FontSize="14"
                        Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},Path=tiemporest,StringFormat='Rest: {0}'}"></Label>
         </Grid>
 
@@ -215,7 +215,7 @@
                         <Border Padding="3" Style="{DynamicResource BorderWithShadowStyle}" Margin="8">
                             <Grid RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="7">
 
-                                <Label x:Name="NombreEjercicioLabel" Text="{Binding Ejercicio.Nombre}" Margin="0,0,0,6" Grid.Row="0" HorizontalOptions="Start" Style="{DynamicResource Headline}" FontSize="13">
+                                <Label x:Name="NombreEjercicioLabel" Text="{Binding Ejercicio.Nombre}" Margin="0,0,0,6" Grid.Row="0" HorizontalOptions="Start" Style="{DynamicResource Headline}" FontSize="15">
                                     <Label.Triggers>
                                         <DataTrigger TargetType="Label" Binding="{Binding Completado}" Value="True">
                                             <Setter Property="Text" Value="{Binding Ejercicio.Nombre,StringFormat='{0} :   Completado ✓'}"></Setter>
@@ -345,7 +345,7 @@
                                                             <Setter Property="BackgroundColor" Value="Transparent"></Setter>
                                                         </DataTrigger>
                                                     </Border.Triggers>
-                                                    <Entry x:Name="EntryReps" Placeholder="---" IsEnabled="True" FontAttributes="Bold" WidthRequest="25" HeightRequest="60" TextColor="White"
+                                                    <Entry x:Name="EntryReps" Placeholder="---" IsEnabled="True" FontAttributes="Bold" WidthRequest="25" HeightRequest="60"
                                                                    IsVisible="False" Text="{Binding RepsTemp,Mode=TwoWay}" Keyboard="Numeric" MaxLength="2">
                                                         <Entry.Triggers>
                                                             <DataTrigger TargetType="Entry" Binding="{Binding EstadoSerie}" Value="3">
@@ -364,7 +364,7 @@
 
                                                 <!--BUTTON PLAY PAUSE COMMAND-->
                                                 <Border Grid.Column="5" Style="{StaticResource SelectedBorder}" Padding="0" Margin="0">
-                                                    <Button x:Name="ClickedButton" Grid.Column="5" Padding="0" FontSize="15" WidthRequest="45" TextColor="White"
+                                                    <Button x:Name="ClickedButton" Grid.Column="5" Padding="0" FontSize="15" WidthRequest="45" TextColor="Black"
                                                                         Command="{Binding Source={x:Reference ThisContentPage}, Path=PlayPauseCommand}" Text="▶">
                                                         <Button.CommandParameter>
                                                             <MultiBinding Converter="{StaticResource TupleConverter}">
