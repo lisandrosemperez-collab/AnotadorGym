@@ -299,7 +299,7 @@
                     ItemsSource="{Binding DiaEntrenamiento.RegistroEjercicios}"
                     SelectionMode="None">
                         <CollectionView.ItemsLayout>
-                            <LinearItemsLayout ItemSpacing="8"></LinearItemsLayout>
+                            <LinearItemsLayout ItemSpacing="8" Orientation="Vertical"></LinearItemsLayout>
                         </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>

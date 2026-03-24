@@ -83,7 +83,7 @@ public partial class SplashPage : ContentPage, INotifyPropertyChanged
     {
         EjerciciosSource ejercicios = null;
         RutinasSource rutinas = null;
-
+        var diasDeEjercicios = new List<DiaEntrenamiento>();
         var estado = AppInitPersistence.LeerEstadoInicial();
 
         bool necesitaEjercicios =
@@ -122,7 +122,7 @@ public partial class SplashPage : ContentPage, INotifyPropertyChanged
             }
 
 #if DEBUG
-            var diasDeEjercicios = await _configService.CargarDiaEntrenamientoPruebas() ?? new List<DiaEntrenamiento>();
+            diasDeEjercicios = await _configService.CargarDiaEntrenamientoPruebas() ?? new List<DiaEntrenamiento>();
 #endif
 
             await _dbInitializer.InitializeAsync(estado.PrimerArranque, progress, ejercicios, rutinas, diasDeEjercicios, token);

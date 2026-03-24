@@ -364,7 +364,7 @@
 
                                                 <!--BUTTON PLAY PAUSE COMMAND-->
                                                 <Border Grid.Column="5" Style="{StaticResource SelectedBorder}" Padding="0" Margin="0">
-                                                    <Button x:Name="ClickedButton" Grid.Column="5" Padding="0" FontSize="15" WidthRequest="45" TextColor="Black"
+                                                    <Button x:Name="ClickedButton" Grid.Column="5" Padding="0" FontSize="15" WidthRequest="45"
                                                                         Command="{Binding Source={x:Reference ThisContentPage}, Path=PlayPauseCommand}" Text="▶">
                                                         <Button.CommandParameter>
                                                             <MultiBinding Converter="{StaticResource TupleConverter}">
