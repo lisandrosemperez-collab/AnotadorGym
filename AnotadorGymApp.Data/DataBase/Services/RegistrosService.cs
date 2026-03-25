@@ -16,18 +16,26 @@ namespace AnotadorGymApp.Data.DataBase.Services
         {
             _dataBaseContext = dataBaseContext;
         }
-        public async Task<List<DiaEntrenamiento>> ObtenerDiasEntrenamientoPorSemana(int semanasAtras = 0)
+        public (DateTime inicio, DateTime fin) ObtenerRangoSemana(DateTime fechaReferencia)
         {
-            var fechaReferencia = DateTime.Today.AddDays(-(semanasAtras * 7));
-            var fechaInicioSemana = fechaReferencia.AddDays(-(int)fechaReferencia.DayOfWeek);
-            var fechaFinSemana = fechaInicioSemana.AddDays(6);
+            int diff = (7 + (fechaReferencia.DayOfWeek - DayOfWeek.Monday)) % 7;
+            var inicio = fechaReferencia.AddDays(-diff);
+            var fin = inicio.AddDays(6);
 
+            return (inicio, fin);
+        }       
+        public async Task<List<DiaEntrenamiento>> ObtenerDiasEntrenamientoPorRango(DateTime inicio, DateTime fin)
+        {
             return await _dataBaseContext.DiasEntrenamientos
-                .Where(w => w.Fecha >= fechaInicioSemana && w.Fecha <= fechaFinSemana)
+                .Where(w => w.Fecha >= inicio
+                    && w.Fecha <= fin
+                    && w.RegistroEjercicios.Any())
                 .Include(w => w.RegistroEjercicios)
                     .ThenInclude(e => e.Ejercicio)
                 .Include(w => w.RegistroEjercicios)
                     .ThenInclude(e => e.RegistroSeries)
+                .AsSplitQuery()
+                .AsNoTracking()
                 .ToListAsync();
         }
         public async Task<DiaEntrenamiento> ObtenerOCrearDiaEntrenamientoActual()

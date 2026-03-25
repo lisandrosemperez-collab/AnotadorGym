@@ -57,7 +57,7 @@
             </Border>
 
             <!--RUTINA ACTIVA-->
-            <Border x:Name="RutinaActivaContenedor" Style="{DynamicResource BorderWithShadowStyle}" 
+                <Border x:Name="RutinaActivaContenedor" Style="{DynamicResource BorderWithShadowStyle}"
                     IsVisible="False" Padding="20">
 
                 <Grid RowDefinitions="*, Auto, Auto, Auto" 
@@ -152,7 +152,7 @@
                             BackgroundColor="{DynamicResource GreenPrimary}"
                             StrokeShape="RoundRectangle 20">
 
-                        <Button Text="Crear rutina"
+                        <Button Text="Comenzar rutina"
                                 HeightRequest="50"
                                 BackgroundColor="Transparent"
                                 TextColor="White"
@@ -163,8 +163,8 @@
             </Border>
 
             <!--RESUMEN SEMANAL-->
-            <Border Style="{DynamicResource BorderWithShadowStyle}" Padding="20">
-                <VerticalStackLayout BindingContext="{Binding ResumenSemanal}" x:Name="ResumenSemanalGrid" IsVisible="False" Padding="15" BackgroundColor="Transparent">
+            <Border Style="{DynamicResource BorderWithShadowStyle}" Padding="20" x:Name="ResumenSemanalBorder" IsVisible="False">
+                <VerticalStackLayout BindingContext="{Binding ResumenSemanal}" IsVisible="True" Padding="15" BackgroundColor="Transparent">
 
                     <Label Text="Resumen semanal"
                            FontSize="16"

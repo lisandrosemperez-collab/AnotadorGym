@@ -170,10 +170,24 @@
 
             <Label Grid.Row="1" FontSize="14"
                        Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},Path=Tiempo,StringFormat='Total: {0}'}"></Label>
-            <Label Grid.Row="1" Grid.Column="1" FontSize="14"
-                       Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},Path=tiempoactivo,StringFormat='Activo: {0}'}"></Label>
-            <Label Grid.Row="1" Grid.Column="2" FontSize="14"
-                       Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},Path=tiemporest,StringFormat='Rest: {0}'}"></Label>
+
+            <Label FontSize="14" Grid.Row="1" Grid.Column="1"
+                        Text="{Binding tiempoactivo,StringFormat='Activo: {0}'}">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding SerieActual.EstadoSerie}" Value="2">
+                        <Setter Property="TextColor" Value="{DynamicResource GreenPrimary}"/>
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
+
+            <Label FontSize="14" Grid.Row="1" Grid.Column="2"
+                       Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},Path=tiemporest,StringFormat='Descanso: {0}'}">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding SerieActual.EstadoSerie}" Value="3">
+                        <Setter Property="TextColor" Value="{DynamicResource GreenPrimary}"/>
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
         </Grid>
 
         <!--RUTINA-->

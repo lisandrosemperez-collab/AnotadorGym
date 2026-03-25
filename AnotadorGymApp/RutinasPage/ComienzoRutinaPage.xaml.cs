@@ -27,10 +27,22 @@ public partial class ComienzoRutinaPage : ContentPage, INotifyPropertyChanged
     private bool _saliendo = false;
     public int RutinaId { get; set; }
     public Rutinas RutinaActual { get; set; } = new Rutinas();
-    public DiaEntrenamiento DiaEntrenamientoActual { get; set; } = new DiaEntrenamiento();    
+    public DiaEntrenamiento DiaEntrenamientoActual { get; set; } = new DiaEntrenamiento();
 
     #region Comandos
-    RutinaSeries SerieActual;    
+    private RutinaSeries serieActual;
+    public RutinaSeries SerieActual
+    {
+        get => serieActual;
+        set
+        {
+            if (serieActual != value)
+            {
+                serieActual = value;
+                OnPropertyChanged(nameof(SerieActual));
+            }
+        }
+    }
     public ICommand PlayPauseCommand { get; private set; }
     public ICommand ActualizarCommand { get;private set; }
     #endregion

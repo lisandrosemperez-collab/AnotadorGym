@@ -162,13 +162,12 @@ namespace AnotadorGymApp
         {
             try
             {
-                var diasSemana = await registrosService.ObtenerDiasEntrenamientoPorSemana(semanasAtras);
-
-                // Calcular fechas de la semana solicitada
                 var fechaReferencia = DateTime.Today.AddDays(-(semanasAtras * 7));
-                var fechaInicioSemana = fechaReferencia.AddDays(-(int)fechaReferencia.DayOfWeek);
-                var fechaFinSemana = fechaInicioSemana.AddDays(6);
-                
+                var (fechaInicioSemana, fechaFinSemana) = registrosService.ObtenerRangoSemana(fechaReferencia);
+
+                List<DiaEntrenamiento> diasSemana = await registrosService
+                    .ObtenerDiasEntrenamientoPorRango(fechaInicioSemana, fechaFinSemana);
+
                 ResumenSemanal = new ResumenSemanal
                 {
                     FechaInicio = fechaInicioSemana,
@@ -180,13 +179,13 @@ namespace AnotadorGymApp
                 };
 
                 // Mostrar/ocultar según si hay datos
-                ResumenSemanalGrid.IsVisible = diasSemana.Any();
+                ResumenSemanalBorder.IsVisible = diasSemana.Any();
                 SinDatosSemanalesContenedor.IsVisible = !diasSemana.Any();
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"❌ Error calculando resumen semanal: {ex.Message}");
-                ResumenSemanalGrid.IsVisible = false;
+                ResumenSemanalBorder.IsVisible = false;
                 SinDatosSemanalesContenedor.IsVisible = true;
             }
         }
