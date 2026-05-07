@@ -22,6 +22,7 @@ La aplicación sigue un enfoque offline-first, permitiendo consultar ejercicios,
 
 El proyecto fue desarrollado con foco en arquitectura, persistencia local, experiencia de usuario y consumo de servicios cloud reales.
 
+- 📥 [Descargar APK](https://github.com/lisandrosemperez-collab/AnotadorGym/releases/tag/v1.0)
 - 🔗 [App Móvil (este repositorio)](https://github.com/lisandrosemperez-collab/AnotadorGymApp)
 - 🔗 [API Backend](https://github.com/lisandrosemperez-collab/AnotadorGymAppApi)
 - 🔗 [API en producción](https://anotadorgym-api.azurewebsites.net/)
