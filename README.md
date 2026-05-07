@@ -3,10 +3,10 @@
 [![.NET MAUI](https://img.shields.io/badge/.NET%20MAUI-8.0-blueviolet)](https://dotnet.microsoft.com/apps/maui)
 [![C#](https://img.shields.io/badge/C%23-12.0-green)](https://docs.microsoft.com/dotnet/csharp/)
 ![EF Core](https://img.shields.io/badge/EF%20Core-8.0-orange)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?logo=postgresql)
-![Docker](https://img.shields.io/badge/Docker-%E2%9C%94-2496ED?logo=docker)
-![Render](https://img.shields.io/badge/Render-deployed-46E3B7?logo=render)
-[![GitHub stars](https://img.shields.io/github/stars/lisandrosemperez-collab/AnotadorGym)](https://github.com/lisandrosemperez-collab/AnotadorGym/stargazers)
+![Azure App Service](https://img.shields.io/badge/Azure-App_Service-0078D4?logo=microsoftazure)
+![Azure SQL](https://img.shields.io/badge/Azure-SQL_Database-0078D4?logo=microsoftazure)
+![SQLite](https://img.shields.io/badge/SQLite-07405E?logo=sqlite)
+[![GitHub stars](https://img.shields.io/github/stars/lisandrosemperez-collab/AnotadorGymApp)](https://github.com/lisandrosemperez-collab/AnotadorGymApp/stargazers)
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/lisandrosemperez-collab/AnotadorGym/main/screenshots/Splash.jpeg" width="300">
@@ -16,15 +16,15 @@
 
 ## 🌟 Descripción General
 
-Anotador Gym es un ecosistema completo de tracking de entrenamientos que combina una aplicación móvil nativa multiplataforma (desarrollada con .NET MAUI) con una API RESTful backend desplegada en la nube. La app funciona offline-first y sincroniza datos con la API cuando hay conectividad, permitiendo una experiencia fluida en cualquier contexto.
+Anotador Gym es una aplicación móvil multiplataforma desarrollada con .NET MAUI enfocada en el seguimiento y gestión de entrenamientos.
 
-## 🎯 Objetivo del Proyecto
+La aplicación sigue un enfoque offline-first, permitiendo consultar ejercicios, rutinas y registrar entrenamientos incluso sin conexión a internet. Cuando hay conectividad, consume una API REST desplegada en Microsoft Azure para sincronizar información y obtener actualizaciones del catálogo.
 
-Desarrollar una aplicación completa de seguimiento de entrenamientos aplicando buenas prácticas de arquitectura, persistencia de datos y sincronización con backend, simulando un entorno de desarrollo profesional real.
+El proyecto fue desarrollado con foco en arquitectura, persistencia local, experiencia de usuario y consumo de servicios cloud reales.
 
-- 🔗 [App Móvil (este repositorio)](https://github.com/lisandrosemperez-collab/AnotadorGym)
+- 🔗 [App Móvil (este repositorio)](https://github.com/lisandrosemperez-collab/AnotadorGymApp)
 - 🔗 [API Backend](https://github.com/lisandrosemperez-collab/AnotadorGymAppApi)
-- 🔗 [API en producción](https://anotadorgymappapi.onrender.com)
+- 🔗 [API en producción](https://anotadorgym-api.azurewebsites.net/)
 
 ### Interfaz Principal
 | Tema Claro | Tema Oscuro |
@@ -98,26 +98,43 @@ AnotadorGymApp.Data/                     # Dominio + persistencia
 - **Sincronización:** La app implementa un enfoque *offline-first*, permitiendo trabajar sin conexión y sincronizando con la API REST cuando hay disponibilidad de red.
 
 ## 🌐 Backend API (Repositorio Separado)
-La API está desarrollada en .NET 9 y desplegada en Render utilizando contenedores Docker. Proporciona un catálogo de más de 900 ejercicios con sus relaciones musculares, y endpoints protegidos con JWT para importación/validación.
 
-- 🔗 [Repositorio](https://github.com/lisandrosemperez-collab/AnotadorGymAppApi)
-- 🔗 [Documentación Swagger en vivo](https://anotadorgymappapi.onrender.com)
+La aplicación consume una API REST desarrollada en ASP.NET Core y desplegada en Microsoft Azure App Service.
 
-⚙️ Características Técnicas de la API
-- **Deploy en Render:** la API está desplegada en un entorno cloud con soporte para contenedores Docker, permitiendo escalabilidad y despliegues automatizados.
-- **.NET 9** con controladores y servicios.
-- **Autenticación JWT** para endpoints de importación/validación.
-- **Entity Framework Core** con PostgreSQL (Neon).
-- **Importación masiva** desde JSON con validaciones.
-- **Documentación Swagger** interactiva.
-- **Rendimiento optimizado:** endpoint principal sirve 900+ ejercicios en 3.65s (tiempo total desde cliente) con procesamiento interno de 2ms.
+La API centraliza la autenticación JWT, el catálogo de ejercicios y rutinas, y permite reutilizar la misma infraestructura entre múltiples clientes (React y .NET MAUI).
+
+- 🔗 [Repositorio Backend](https://github.com/lisandrosemperez-collab/AnotadorGymAppApi)
+- 🔗 [Swagger en producción](https://anotadorgym-api.azurewebsites.net)
+  
+### ⚙️ Características Técnicas de la API
+
+- ASP.NET Core + Entity Framework Core
+- JWT Authentication con roles
+- Azure App Service
+- Azure SQL Database
+- Azure Blob Storage como capa de caché
+- Swagger/OpenAPI
+- Arquitectura API-first reutilizable
 
 ## ✨ Características Principales (App)
+
+### 🚀 Highlights Técnicos
+
+- Aplicación móvil multiplataforma con .NET MAUI
+- Arquitectura offline-first
+- Persistencia local con SQLite + EF Core
+- Consumo de API REST en Azure
+- JWT Authentication con roles
+- Caché cloud utilizando Azure Blob Storage
+- Sincronización y fallback automático
+- Más de 900 ejercicios sincronizados desde la API
+- Temas dinámicos claro/oscuro
+- Arquitectura desacoplada y reutilizable
 
 ### 🏗️ Arquitectura y Diseño
 - Clean Architecture con separación física de capas (UI + Data).
 - Patrón MVVM con data binding y comandos.
-- Inyección de dependencias manual en App.xaml.cs.
+- Inyección de dependencias y desacoplamiento de servicios.
 - Repository Pattern implementado en la capa de datos mediante servicios especializados.
 - Entity Framework Core 8 (Code-First, migraciones automáticas).
 
@@ -136,15 +153,15 @@ La API está desarrollada en .NET 9 y desplegada en Render utilizando contenedor
 ### 🔐 Seguridad y Sincronización
 - **Arquitectura offline-first:** la app funciona sin conexión y sincroniza cuando hay red.
 - **Consumo de API REST** con manejo de errores y reintentos.
-- **Variables de entorno** para configuración segura (no aplica directamente en app, pero sí en API).
+- **Configuración desacoplada** de endpoints y manejo seguro de tokens mediante SecureStorage.
 
 ## 🛠️ Stack Tecnológico
 | Categoría | Tecnologías |
 |-----------|-------------|
-| **Backend** | .NET 9, ASP.NET Core, Entity Framework Core, JWT, Swagger, PostgreSQL (Neon), Docker, Render |
+| **Backend/API** | ASP.NET Core, Entity Framework Core, JWT, Swagger, Azure App Service, Azure SQL Database, Azure Blob Storage |
 | **Frontend Móvil** | .NET MAUI, C#, XAML, MVVM, Microcharts, SQLite, Entity Framework Core |
 | **Arquitectura** | Clean Architecture, Repository Pattern, Dependency Injection, Offline-first |
-| **Herramientas** | Visual Studio 2022, Git, GitHub, GitHub Actions (básico) |
+| **Herramientas** | Visual Studio 2022, Git, GitHub, GitHub Actions |
 
 ## 🚀 Cómo Ejecutar el Proyecto
 
@@ -169,18 +186,16 @@ La aplicación creará automáticamente la base de datos SQLite y cargará los d
 - Ejercicios: desde la API (900+ precargados).
 - Rutinas y otros datos: desde archivos JSON en `Resources/Raw/`.
 
-## ⚙️ Decisiones Técnicas Destacadas
-
 ## 📈 Roadmap y Mejoras Futuras
+
 ### ✅ Completado
 - **App MAUI** con funcionalidades básicas y gráficos.
-- **API REST** con autenticación JWT y despliegue en Render.
-- **Base de datos PostgreSQL** con 900+ ejercicios precargados.
-- **Sincronización** básica entre app y API.
-
+- **API REST** con autenticación JWT desplegada en Microsoft Azure App Service.
+- **Azure SQL Database** con más de 900 ejercicios precargados.
+- **Sincronización** de catálogo y datos entre app móvil y API REST.
+  
 ### 🚧 En Progreso
 - [ ] Sincronización bidireccional completa (offline-first robusto).
-- [ ] Sistema de caché avanzado en la app.
 - [ ] Tests unitarios en API y app.
 
 ## ✉️ Soporte y Contacto
