@@ -8,6 +8,7 @@ using Microsoft.Maui.Storage;
 using System.Diagnostics;
 using Microsoft.Maui.Controls.PlatformConfiguration;
 using AnotadorGymApp.RutinasPage;
+using Microsoft.Extensions.Configuration;
 using AnotadorGymApp.MainPageViews;
 using AnotadorGymApp.MetricasPageViews;
 using AnotadorGymApp.ConfiguracionPage;
@@ -50,8 +51,7 @@ namespace AnotadorGymApp
                     options.UseSqlite($"Data Source={ruta}",sqliteOptions => { sqliteOptions.MigrationsAssembly("AnotadorGymApp.Data"); });                    
                 }
             );
-            builder.Services.AddDbContextFactory<DataBaseContext>();
-
+            builder.Services.AddDbContextFactory<DataBaseContext>();          
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

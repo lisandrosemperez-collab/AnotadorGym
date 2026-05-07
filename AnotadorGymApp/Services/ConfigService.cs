@@ -6,6 +6,7 @@ using AnotadorGymApp.Data.Models.Entities;
 using AnotadorGymApp.Data.Models.Results;
 using AnotadorGymApp.Data.Models.Sources;
 using AnotadorGymApp.Resources.Styles;
+using AnotadorGymApp.Services.Responses;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -19,12 +20,15 @@ namespace AnotadorGymApp.Services
 {
     public class ConfigService
     {
-        public bool TemaOscuro { get; private set; }
+        public bool TemaOscuro { get; private set; }        
+        private readonly HttpClient _httpClient = new()
+        {
+            Timeout = TimeSpan.FromSeconds(20)
+        };
         public ConfigService()
         {
             TemaOscuro = Preferences.Get("TemaOscuro", false);
         }
-
         public void GuardarTema(bool temaOscuro)
         {
             TemaOscuro = temaOscuro;
@@ -58,9 +62,13 @@ namespace AnotadorGymApp.Services
 
             var archivosPrioridad = usarDatosDemo
                                         ? new[] { "EjerciciosEJEMPLO.json", "Ejercicios.json" }
-                                        : new[] { "Ejercicios.json", "EjerciciosEJEMPLO.json" };
+                                        : new[] { "Ejercicios.json", "EjerciciosEJEMPLO.json" };            
 
-            var result = await CargarDatosAsync(apiUrl: "https://anotadorgymappapi.onrender.com/api/ejercicios/all",
+            var token = await ObtenerToken();
+                        
+            var endpointEjercicios = $"{ApiSettings.BaseUrl}{ApiSettings.EejerciciosEndpoint}";
+
+            var result = await CargarDatosAsync(apiUrl: endpointEjercicios,
                 deserializarApi: json =>
                 {
                     var options = new JsonSerializerOptions
@@ -70,8 +78,9 @@ namespace AnotadorGymApp.Services
                     return JsonSerializer.Deserialize<List<EjercicioDTO>>(json, options);
                 },
                 deserializarLocal: json => JsonSerializer.Deserialize<List<EjercicioDTO>>(json),
-                archivosPrioridad: archivosPrioridad
-                );
+                archivosPrioridad: archivosPrioridad,
+                token: token
+            );
 
             return new EjerciciosSource { CargadoExitoso = result.exitoso, Datos = result.datos, EsDemo = result.esDemo, Origen = result.origen };
         }
@@ -81,8 +90,12 @@ namespace AnotadorGymApp.Services
             var archivosPrioridad = usarDatosDemo ?
                         new[] { "RutinasEJEMPLO.json", "Rutinas.json" } :
                         new[] { "Rutinas.json", "RutinasEJEMPLO.json" };
+            
+            var token = await ObtenerToken();
 
-            var result = await CargarDatosAsync(apiUrl: "https://anotadorgymappapi.onrender.com/api/rutinas",
+            var endpointRutinas = $"{ApiSettings.BaseUrl}{ApiSettings.RutinasEndpoint}";
+
+            var result = await CargarDatosAsync(apiUrl: endpointRutinas,
                 deserializarApi: json =>
                 {
                     var options = new JsonSerializerOptions
@@ -93,9 +106,9 @@ namespace AnotadorGymApp.Services
                     return res?.Items ?? new List<RutinaDto>();
                 },
                 deserializarLocal: json => JsonSerializer.Deserialize<List<RutinaDto>>(json),
-                archivosPrioridad: archivosPrioridad
-                );
-
+                archivosPrioridad: archivosPrioridad,
+                token: token
+            );
 
             return new RutinasSource
             {
@@ -109,10 +122,10 @@ namespace AnotadorGymApp.Services
             string apiUrl,
             Func<string, T> deserializarApi,
             Func<string, T> deserializarLocal,
-            string[] archivosPrioridad)
+            string[] archivosPrioridad,string token)
         {
             // 1. Intentar API
-            var jsonApi = await ObtenerRespuestaApi(apiUrl);
+            var jsonApi = await ObtenerRespuestaApi(apiUrl,"GET",token);
 
             if (!string.IsNullOrWhiteSpace(jsonApi))
             {
@@ -155,20 +168,71 @@ namespace AnotadorGymApp.Services
 
             throw new InvalidOperationException("No hay datos disponibles");
         }
-        private async Task<string> ObtenerRespuestaApi(string url, int maxRetries = 3)
+        private async Task<string> ObtenerToken()
         {
-            using var httpClient = new HttpClient
+            try
             {
-                Timeout = TimeSpan.FromSeconds(20)
-            };
+                var endpointLogin = $"{ApiSettings.BaseUrl}{ApiSettings.LoginEndpoint}";
+
+                var token = await SecureStorage.GetAsync("token_invitado");
+
+                if (string.IsNullOrWhiteSpace(token))
+                {
+                    var response = await ObtenerRespuestaApi(endpointLogin,"POST");
+
+                    if (!string.IsNullOrWhiteSpace(response))
+                    {
+                        var options = new JsonSerializerOptions
+                        {
+                            PropertyNameCaseInsensitive = true
+                        };
+
+                        var tokenResponse =
+                            JsonSerializer.Deserialize<TokenResponse>(response, options);
+
+                        token = tokenResponse?.TokenString;
+                        if (!string.IsNullOrWhiteSpace(token))
+                        {
+                            await SecureStorage.SetAsync(
+                                "token_invitado",
+                                token);
+                        }
+                    }
+                }
+                
+                if (!string.IsNullOrWhiteSpace(token))
+                {
+                    return token;
+                }
+                
+                Debug.WriteLine("⚠️ No se obtuvo token de la API");
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"❌ Error obteniendo token: {ex.Message}");
+                return null;
+            }            
+        }
+        private async Task<string> ObtenerRespuestaApi(string url, string method,string? token = null, int maxRetries = 3)
+        {            
 
             for (int intento = 1; intento <= maxRetries; intento++)
             {
                 try
                 {
                     Debug.WriteLine($"🌐 Intento {intento}/{maxRetries}");
+                    
+                    using var request = new HttpRequestMessage(new HttpMethod(method), url);
+                                        
+                    if (!string.IsNullOrWhiteSpace(token))
+                    {
+                        request.Headers.Authorization =
+                            new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                    }                                            
 
-                    var response = await httpClient.GetAsync(url);
+                    var response = await _httpClient.SendAsync(request);
 
                     if (response.IsSuccessStatusCode)
                     {
